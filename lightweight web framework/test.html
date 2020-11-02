@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="framework.css">
+    <script src="framework.js"></script>
+</head>
+<body class="animated noflow">
+    <div class="container bg-surface"><a class="button bg-secondary" id="theme_button" href="#">Theme</a></div>
+    <div class="container">
+        <div class="center-vertical">
+            <div class="center-horizontal surface">
+                <h2>This is some text!</h2>
+                Text is cringe. I do not like text
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var is_dark_theme = false
+
+    FF("#theme_button").onclick = function() {
+        is_dark_theme = !is_dark_theme
+        FF("body")[0].setAttribute("theme",is_dark_theme ? "dark" : "light")
+        FF_toast("Theme changed!","new theme is now " + (is_dark_theme ? "dark" : "light") + "!")
+    }
+</script>
+</html>

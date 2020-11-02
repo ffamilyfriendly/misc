@@ -1,0 +1,218 @@
+:root {
+    --bg: #ffffff;
+    --surface: white;
+    --text: black;
+    --primary: MidnightBlue;
+    --onPrimary: white;
+    --secondary: MediumSeaGreen;
+    --onSecondary: white;
+    --error: Maroon;
+    --onError: white;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+body[theme=dark] {
+    --bg: #121212;
+    --surface: #272727;
+    --text: white;
+    --primary: #FF9800;
+    --onPrimary: white;
+    --secondary:  #FF9800;
+    --onSecondary: white;
+    --error: #d50000;
+    --onError: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #121212;
+        --surface: #272727;
+        --text: white;
+        --primary: #FF9800;
+        --onPrimary: white;
+        --secondary:  #FF9800;
+        --onSecondary: white;
+        --error: #d50000;
+        --onError: white;
+    }    
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    padding: 0;
+    margin: 0;
+}
+
+body.animated {
+    transition: .3s;
+}
+
+.noflow {
+    overflow-x: hidden;
+}
+
+/* DIV ALIGNMENT */
+
+/* center div vertically */
+.center-vertical {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* center div horizontally */
+.center-horizontal {
+    width: 50%;
+    margin: auto;
+}
+
+/* looks cool idk */
+.surface {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    background-color: var(--surface);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* buttons */
+.button {
+    padding: 0.4em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.rounded {
+    border-radius: 0.25em;
+}
+
+.button:hover {
+    filter: hue-rotate(35deg);
+    -webkit-filter: hue-rotate(35deg);
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    transition: all .2s ease;
+    padding: 0.5em;
+}
+
+.bg-primary {
+    background-color: var(--primary);
+    color: var(--onPrimary);
+}
+
+.bg-secondary {
+    background-color: var(--secondary);
+    color: var(--onSecondary);
+}
+
+.bg-error {
+    background-color: var(--error);
+    color: var(--onError);
+}
+
+.bg-surface {
+    background-color: var(--surface);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.light-padded {
+    padding: 0.25em;
+}
+
+.padded {
+    padding: 0.5em;
+}
+
+.heavy-padded {
+    padding: 1em;
+}
+
+/* center text */
+.center {
+    text-align: center;
+}
+
+/* container has only simple padding */
+.container {
+    padding: 0.5em;
+}
+
+/* used for simple "pages" (only targeted div is shown) */
+.page {
+    display: none;
+}
+
+.page:target {
+    display: inherit;
+}
+
+/* only shown on mobile */
+.mobile {
+    display: none;
+}
+
+/* only shown on pc */
+.pc {
+    display: inherit;
+}
+
+.toastarea {
+    position: absolute;
+    width: 25%;
+    z-index: 69;
+    right: 0;
+}
+
+.toast {
+    margin: 1em;
+    width: 100%;
+    float: right;
+}
+
+.toast h2 {
+    margin-top: 0.1em;
+    margin-bottom: 0.2em;
+}
+
+@-webkit-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+ }
+
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;} 
+} 
+
+.fadeout {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    -webkit-animation-duration: 1s;animation-duration: 1s;
+    -webkit-animation-fill-mode: both;animation-fill-mode: both;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .toastarea {
+        position: absolute;
+        width: 90%;
+        z-index: 69;
+    }
+
+    .center-horizontal {
+        width: 90%;
+    }
+
+    .mobile {
+        display: inherit;
+    }
+
+    .pc {
+        display: none;
+    }
+  }
