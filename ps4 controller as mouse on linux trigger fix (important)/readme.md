@@ -1,0 +1,2 @@
+# What is this???
+Good question, friend! I noticed the ps4 touch pad can act as a mouse on manjaro linux but was devastated to find that the triggers do not act as left/right mouse button... **until now** 
