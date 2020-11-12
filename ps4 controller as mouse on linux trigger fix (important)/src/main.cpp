@@ -24,6 +24,15 @@ bool ps4ctrl::Ds4::isInitialized() {
     return this->initialized;
 }
 
+std::pair<int,int> decodeTPAD(unsigned char byte1, unsigned char midbyte, unsigned char byte3) {
+    std::pair <int,int> xy;
+    int x = byte1 + ((midbyte & 0xF) * 255);
+    int y = ((midbyte & 0xF0) >> 4) + (byte3 * 16);
+    xy.first = x;
+    xy.second = y;
+    return xy;
+}
+
 void ps4ctrl::Ds4::tryReconnect(bool firstinit) {
     unsigned pid, pid2, vid;
 
@@ -102,11 +111,17 @@ ps4ctrl::input ps4ctrl::Ds4::listen() {
     i.l2 = (float)bytes[8] / 0xFF;
     i.r2 = (float)bytes[9] / 0xFF; 
 
+    i.audio = (ps4ctrl::dsAudio)bytes[30];
+
     //TPAD
     i.tpad_finger1_down = getBit(bytes[35],7);
     i.tpad_finger2_down = getBit(bytes[39],7);
 
-    printf("stick: %f\n",i.r_stick_x);
+    i.tpad_finger1_pos = decodeTPAD(bytes[36],bytes[37],bytes[38]); // Get curr pos finger 1
+    i.tpad_finger2_pos = decodeTPAD(bytes[40],bytes[41],bytes[42]); // Get curr pos finger 2
+
+    i.prev_tpad_finger1_pos = decodeTPAD(bytes[45],bytes[46],bytes[47]); // Get prev pos finger 1
+    i.prev_tpad_finger2_pos = decodeTPAD(bytes[49],bytes[50],bytes[51]); // Get prev pos finger 2
 
     return i;
 }

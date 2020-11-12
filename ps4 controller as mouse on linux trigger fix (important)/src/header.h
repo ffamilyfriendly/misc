@@ -10,6 +10,14 @@
 
 namespace ps4ctrl {
 
+    enum dsAudio {
+        headset_mic = 0x7B,
+        headset = 0x3B,
+        nothing = 0x1B,
+        bluetooth = 0x08,
+        unknown = 0x05
+    };
+
     struct input {
         float l2; // left bottom trigger value as float. Values range from 0 to 1 with 1 being the button fullt pressed
         float r2; // same as above but right trigger
@@ -34,11 +42,14 @@ namespace ps4ctrl {
         bool button_options; // if options button is clicked
         bool button_share; // if share button is clicked
         bool button_ps; // if ps logo button is clicked
+        dsAudio audio; // the state of attatched audio attatchements
         bool tpad; // if the trackpad is being pushed down
         bool tpad_finger1_down; // if finger1 is touching the trackpad;
         bool tpad_finger2_down; // if finger2 is touching the trackpad;
         std::pair<int,int> tpad_finger1_pos; // finger1 pos pair<int,int>. Represents x & y;
         std::pair<int,int> tpad_finger2_pos; // same as above but finger2
+        std::pair<int,int> prev_tpad_finger1_pos; // previous finger1 pos pair<int,int>. Represents x & y;
+        std::pair<int,int> prev_tpad_finger2_pos; // same as above but finger2
     };
 
     struct RGB {
