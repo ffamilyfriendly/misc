@@ -1,8 +1,9 @@
 FILES = \
-	./src/main.cpp
+	./src/main.cpp \
+	./src/test.cpp
 
 FLAGS = \
-	-I /usr/include/libusb-1.0/ -lusb-1.0
+	-I /usr/include/libusb-1.0/ -lusb-1.0 \
 
 AFTER = \
 	& clear \
