@@ -24,6 +24,17 @@ std::pair<int,int> decodeTPAD(unsigned char byte1, unsigned char midbyte, unsign
     return xy;
 }
 
+void ps4ctrl::Ds4::rumble(int ms, int intensity) {
+    this->rumbleRight = intensity;
+    this->rumbleLeft = intensity;
+    int i = 0;
+    for(i = 0; i < ms/15;i++) {
+        this->sendUpdate();
+    }
+    this->rumbleRight = 0;
+    this->rumbleLeft = 0;
+    this->sendUpdate();
+}
 
 void ps4ctrl::Ds4::tryReconnect(bool firstinit) {
     unsigned pid, pid2, vid;

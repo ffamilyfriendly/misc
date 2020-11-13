@@ -24,6 +24,7 @@ int main() {
         if(i.button_square) _c = currentlyEditing::r;
         if(i.button_x) _c = currentlyEditing::g;
         if(i.button_circle) _c = currentlyEditing::b;
+        if(i.button_square || i.button_x || i.button_circle) c->rumble(150,255/4);
 
         if(i.r2 > 0.1 && i.r1) {
             switch (_c)

@@ -1,12 +1,10 @@
 FILES = \
 	./src/main.cpp \
-	./src/test.cpp
 
 FLAGS = \
 	-I /usr/include/libusb-1.0/ -lusb-1.0 \
-
-AFTER = \
-	& clear \
+	-fPIC \
+	-c
 
 all:
-	g++ ${FILES} ${FLAGS} -o ./bin/ps4fix ${AFTER}
+	g++ ${FILES} ${FLAGS} -o ./bin/ps4fix.so
