@@ -18,6 +18,13 @@ namespace ps4ctrl {
         unknown = 0x05
     };
 
+    enum Rumble {
+        none = 0,
+        light = 255/3,
+        medium = 255/2,
+        max = 255
+    };
+
     struct input {
         float l2; // left bottom trigger value as float. Values range from 0 to 1 with 1 being the button fullt pressed
         float r2; // same as above but right trigger
@@ -53,9 +60,9 @@ namespace ps4ctrl {
     };
 
     struct RGB {
-        short r;
-        short g;
-        short b;
+        short r = 0;
+        short g = 0;
+        short b = 0;
     };
 
     class Ds4 {
@@ -65,7 +72,12 @@ namespace ps4ctrl {
             bool isInitialized(); //gets value of private bool "initialized"
             bool reconnect = true; //wheter or not a previusly connected controller shall attempt to reconnect
             RGB colour; //ds4 led colour thingie
+            Rumble rumbleLeft;
+            Rumble rumbleRight;
+            int flashOn = 0;
+            int flashOff = 0;
             input listen(); //listens for input and returns it as a struct input
+            void sendUpdate(); //updates controller with values
         private:
             bool initialized = false; //wheter or not a handle has been created succesfully
             void tryReconnect(bool firstinit = false); //function that connects the controller

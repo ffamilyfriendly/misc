@@ -6,15 +6,6 @@ bool getBit(unsigned char byte, int bitpos) {
     return (byte & (1 << bitpos)) != 0;
 }
 
-/* int test(libusb_device_handle *HANDLE) {
-
-    if(r < 0) {
-        printf("went wrong! %s\n",libusb_strerror((enum libusb_error)r));
-        return r;
-    }
-    return r;
-} */
-
 ps4ctrl::Ds4::Ds4() {
     libusb_init(NULL);
     this->tryReconnect(true);
@@ -32,6 +23,7 @@ std::pair<int,int> decodeTPAD(unsigned char byte1, unsigned char midbyte, unsign
     xy.second = y;
     return xy;
 }
+
 
 void ps4ctrl::Ds4::tryReconnect(bool firstinit) {
     unsigned pid, pid2, vid;
@@ -57,6 +49,27 @@ void ps4ctrl::Ds4::tryReconnect(bool firstinit) {
     }
 
     this->initialized = true;
+}
+
+void ps4ctrl::Ds4::sendUpdate() {
+    if(!this->initialized) return;
+    int r;
+    unsigned char _bytes[10];
+    _bytes[0] = 5;
+    _bytes[1] = 255;
+    _bytes[3] = 4;
+    _bytes[4] = this->rumbleLeft;
+    _bytes[5] = this->rumbleRight;
+    _bytes[6] = this->colour.r;
+    _bytes[7] = this->colour.g;
+    _bytes[8] = this->colour.b; 
+    _bytes[9] = this->flashOn;
+    _bytes[10] = this->flashOff;
+
+    r = libusb_interrupt_transfer(this->HANDLE,0x03,_bytes,sizeof(_bytes),NULL,0);
+    if(r < 0) {
+        printf("could not send input! %s code: %d\n",libusb_strerror((enum libusb_error)r),r);
+    }
 }
 
 ps4ctrl::input ps4ctrl::Ds4::listen() {

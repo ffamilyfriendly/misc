@@ -3,21 +3,61 @@
 int main() {
 
     ps4ctrl::Ds4 *c = new ps4ctrl::Ds4();
+    c->colour.r = 0;
+    c->colour.g = 0;
+    c->colour.b = 0;
+    c->sendUpdate();
     system("clear");
 
-    int timesRan = 0;
+    enum currentlyEditing {
+        r = 1,
+        g = 2,
+        b = 3
+    };
+
+    currentlyEditing _c = currentlyEditing::r;
+
+
     for(;;) {
         ps4ctrl::input i = c->listen();
 
-        if(i.button_x) system("clear");
-        if(i.button_triangle) std::cout << "cool!";
-        if(i.r_stick_y < -0.5) std::cout << std::endl;
+        if(i.button_square) _c = currentlyEditing::r;
+        if(i.button_x) _c = currentlyEditing::g;
+        if(i.button_circle) _c = currentlyEditing::b;
 
-        if(timesRan > 0 && timesRan % 1 == 0 && (1000/5) * timesRan % 50000 == 0) printf("%f seconds until game closes!\n",(float)(1000 * 5 - timesRan * 5) / 1000);
-        if(timesRan > 0 && i.tpad) {
-            timesRan++;
-            if(timesRan > ((1000/5) * 5)) break;
-        } else if(!i.tpad) timesRan = 1;
+        if(i.r2 > 0.1 && i.r1) {
+            switch (_c)
+            {
+                case currentlyEditing::r:
+                    c->colour.r = i.r2*255;
+                break;
+                case currentlyEditing::g:
+                    c->colour.g = i.r2*255;
+                break;
+                case currentlyEditing::b:
+                    c->colour.b = i.r2*255;
+                break;
+            }
+            c->sendUpdate();
+        }
+
+        if(i.button_triangle) {
+            switch (_c)
+            {
+                case currentlyEditing::r:
+                    c->colour.r = 0;
+                break;
+                case currentlyEditing::g:
+                    c->colour.g = 0;
+                break;
+                case currentlyEditing::b:
+                    c->colour.b = 0;
+                break;
+            }
+            c->sendUpdate();
+        }
+
+        if(i.button_ps) break;
     }
     printf("exiting...\n");
     delete c;
