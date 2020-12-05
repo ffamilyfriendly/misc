@@ -31,8 +31,10 @@ namespace console {
 
             template <typename T>
             void runTests(T func(string), string answerToString(T), vector<string> inputs, vector<T> answers) {
+                int succeededTests = answers.size();
                 for(int i = 0; i < inputs.size(); i++) {
                     T answer = func(inputs[i]);
+                    
                     
                     string resStr = " PASSED ";
                     console::colour resCol = console::colour::green;
@@ -40,6 +42,7 @@ namespace console {
                     if(answer != answers[i]) {
                         resStr = " FAILED ";
                         resCol = console::colour::red;
+                        succeededTests--;
                     }
 
                     if(i > answers.size()-1) {
@@ -49,6 +52,7 @@ namespace console {
 
                     this->log(this->styleReset( this->colourBG( this->colour(resStr, console::colour::black),resCol)) + " " + inputs[i] + "\nexpected \"" + answerToString(answers[i]) + "\" got \"" + answerToString(answer) + "\"\n");
                 }
+                this->log(this->styleReset(this->colourBG(this->colour(" PASSED ",console::colour::black), console::colour::green)) + " " + to_string(succeededTests) + " " + this->styleReset(this->colourBG(this->colour(" FAILED ",console::colour::white), console::colour::red)) + " " + to_string(answers.size() - succeededTests));
             };
         private:
     };
