@@ -6,6 +6,26 @@ string repeat(string character, int times) {
     return content;
 }
 
+void console::Console::timeLog::startLog() {
+    this->c->log(" ⏲️ | Timer " + this->c->styleReset(this->c->colour(this->name,console::colour::magenta, console::mode::underline)) + " started!");
+}
+
+void console::Console::timeLog::end() {
+    auto t2 = std::chrono::steady_clock::now();
+    auto difference = chrono::duration_cast<chrono::milliseconds>(t2 - this->t1);
+    string diff = "Difference: ";
+
+    int dDif = this->goal - difference.count();
+
+    if(dDif < this->goal) {
+        diff += c->styleReset(c->colour(to_string(dDif) + "ms", console::colour::red));
+    } else {
+        diff += c->styleReset(c->colour(to_string(dDif) + "ms", console::colour::green));
+    }
+
+    this->c->log("\n ⏲️ | Timer " + this->c->styleReset(this->c->colour(this->name,console::colour::magenta, console::mode::underline)) + " ended!\n ⏲ | Time: " + to_string(difference.count()) + "ms Goal: " + to_string(this->goal) + "ms " + diff + "\n" );
+}
+
 void console::Console::log(string msg) {
     cout << msg << endl;
 }

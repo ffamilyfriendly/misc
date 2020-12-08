@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -23,11 +24,32 @@ namespace console {
             string topDiv = "┬";
             string bottomDiv = "┴";
 
+            struct timeLog {
+                string name;
+                int goal;
+                chrono::_V2::steady_clock::time_point t1;
+                console::Console *c;
+                void end();
+                void startLog();
+                timeLog(string name, Console *c, int goal = 10) {
+                    this->t1 = std::chrono::steady_clock::now();
+                    this->name = name;
+                    this->goal = goal;
+                    this->c = c;
+
+                    this->startLog();
+                }
+            };
+
             void log(string msg);
             void box(vector<vector<string>> contents);
             string colourBG(string input,console::colour bg);
             string colour(string input,console::colour c, console::mode m = console::mode::none);
             string styleReset(string input);
+            timeLog timedLog(string name, int goat = 10) {
+                timeLog t(name,this, goat);
+                return t;
+            }
 
             template <typename T>
             void runTests(T func(string), string answerToString(T), vector<string> inputs, vector<T> answers) {

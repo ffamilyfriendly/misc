@@ -15,6 +15,9 @@ void runTests(string func(string), string answerToString(string) , vector<string
 int main() {
     vector<vector<string>> test;
     console::Console *c = new console::Console();
+
+    auto testTime = c->timedLog("Test Time!");
+
     test.push_back({"index","key","value"});
     for(int i = 0; i < 20; i++) {
         test.push_back({"#"+to_string(i), "user_" + to_string(rand()),"$pass" + to_string(rand())});
@@ -25,6 +28,8 @@ int main() {
 
     vector<string> inputs = {"0","123","923","this is not a number","this input is wrong","too many inputs"};
     vector<int> answers = {0,123,923,0,9};
-    
+
     c->runTests<int>(strToNumber,numberToString,inputs,answers);
+
+    testTime.end();
 }
