@@ -17,7 +17,7 @@ void console::Console::timeLog::end() {
 
     int dDif = this->goal - difference.count();
 
-    if(dDif < this->goal) {
+    if(dDif > this->goal) {
         diff += c->styleReset(c->colour(to_string(dDif) + "ms", console::colour::red));
     } else {
         diff += c->styleReset(c->colour(to_string(dDif) + "ms", console::colour::green));

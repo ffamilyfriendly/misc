@@ -1,0 +1,19 @@
+~ TODO: working calculator that reads input and does maths
+~ until then this is just my main test file
+
+~ assign variable "six" to be 6
+var six 6
+
+print 1
+print 2
+print 3
+print 4
+print 5
+
+~ print variable "six", variables annotated by $
+print $six
+
+print 7
+print 8
+print 9
+print 10
