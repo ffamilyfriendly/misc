@@ -17,15 +17,16 @@ bool startsWith(string data, string target) {
 vector<string> argumentList(string data) {
 	vector<string> args;
 	string chunk = "";
+	bool hasInitiatedString = false;
 
 	for(int i = 0; i < data.length(); i++) {
 		if(chunk.empty() && data[i] == ' ') continue;
-		else if(data[i] == ' ') {
+		else if(data[i] == ' ' && !hasInitiatedString) {
 			args.push_back(chunk);
 			chunk = "";
 			continue;
 		}
-
+		if(data[i] == FF_STRINGCHAR) hasInitiatedString = !hasInitiatedString;
 		chunk += data[i];
 	}
 
@@ -35,23 +36,30 @@ vector<string> argumentList(string data) {
 }
 
 string insertVariables(string data) {
-	for(int i = 0; i < data.length(); i++) {
-		if(data[i] == FF_VARIABLECHAR) {
+
+	int len = data.length();
+	string temp = data;
+
+	for(int i = 0; i < len; i++) {
+		if(temp[i] == FF_VARIABLECHAR) {
 			size_t nSpace = data.substr(i).find(" ");
-			if(nSpace == string::npos) nSpace = data.length();
-			string varName = data.substr(i+1,nSpace);
-			string revamped = data.substr(0,i) + ffs::memory[varName] + data.substr(nSpace);
-			return insertVariables(revamped);
+			if(nSpace == string::npos) nSpace = data.length() - i;
+			string varName = data.substr(i+1,nSpace-1);
+
+			temp = data.substr(0,i) + ffs::memory[varName] + data.substr(i + nSpace);
+			len = temp.length();
+			i = 0;
 		}
 	}
 
-	return data;
+	return temp;
 }
 
 int parseInstructions() {
 	for(ffs::lineIndex = 0; ffs::lineIndex < instructions.size(); ffs::lineIndex++) {
-		string l = insertVariables(instructions[ffs::lineIndex]);
+		string l = instructions[ffs::lineIndex];
 		if(startsWith(l,FF_COMMENTCHAR)) continue;
+		l = insertVariables(l);
 
 		vector<string> args = argumentList(l);
 		if(ffs::instructionList.find(args[0]) != ffs::instructionList.end()) {

@@ -1,19 +1,21 @@
 ~ TODO: working calculator that reads input and does maths
 ~ until then this is just my main test file
 
-~ assign variable "six" to be 6
-var six 6
+var ts "FACT: you"
+var ts $ts + " will"
+var ts $ts + " never"
+var ts $ts + " be"
+var ts $ts + " an"
+var ts $ts + " anime"
+var ts $ts + " girl"
 
-print 1
-print 2
-print 3
-print 4
-print 5
+print $ts
 
-~ print variable "six", variables annotated by $
-print $six
+var math 1
+var math $math + 68
 
-print 7
-print 8
-print 9
-print 10
+print "Math: " + $math + " ... " + "nice"
+
+var math $math * 6.08695652174
+
+print "More math: " + $math + " ... haha"
