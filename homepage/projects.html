@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Projects / Family Friendly</title>
+
+	<!-- fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="projects.css">
+	<script src="projects.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="content-nomid">
+			<h1 id="main-header"><a href="./index.html">Family Friendly</a></h1>
+			<ul class="center" id="main-links">
+				<li><a href="./about.html">About</a></li>
+				<li><a href="./socials.html">Socials</a></li>
+				<li><a class="current-item" href="./projects.html">Projects</a></li>
+			</ul>
+			<hr class="m-margin rm-sides-margin">
+			
+			<div id="projectContainer">
+				<div id="apiError" class="project error hide">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16.971 0h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm-1.402 16.945l-3.554-3.521-3.518 3.568-1.418-1.418 3.507-3.566-3.586-3.472 1.418-1.417 3.581 3.458 3.539-3.583 1.431 1.431-3.535 3.568 3.566 3.522-1.431 1.43z"/></svg>
+					<div>
+						<h1>Github api error</h1>
+						<p id="errorText">error string</p>
+						<i>try again later</i>
+					</div>
+				</div>
+				<div id="wackyLoading" class="project loading visible">
+					<span>this is a asdasdasdloading blob</span> <br>
+					<span>this is a sligasdasdhtly longer loasdasdasdasdading blob</span>
+					<br>
+					<span class="delay">wow asdasdeven more quirky blob</span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>

@@ -35,6 +35,39 @@ vector<string> argumentList(string data) {
 	return args;
 }
 
+bool evaluate(vector<string> args, int start) {
+	int mode = 0;
+	if(args[start+1] == ">") mode = 1;
+	if(args[start+1] == "<") mode = 2;
+	if(args[start+1] == "==") mode = 3;
+	if(args[start+1] == "!=") mode = 4;
+
+	float asNr1 = atof(args[start].c_str());
+	float asNr2 = atof(args[start+2].c_str());
+
+	switch(mode) {
+		case 1:
+			return asNr1 > asNr2;
+		break;
+
+		case 2:
+			return asNr1 < asNr2;
+		break;
+
+		case 3:
+			return args[start] == args[start+2];
+		break;
+
+		case 4:
+			return args[start] != args[start+2];
+		break;
+
+		default:
+			return false;
+		break;
+	}
+}
+
 string insertVariables(string data) {
 
 	int len = data.length();
@@ -42,11 +75,11 @@ string insertVariables(string data) {
 
 	for(int i = 0; i < len; i++) {
 		if(temp[i] == FF_VARIABLECHAR) {
-			size_t nSpace = data.substr(i).find(" ");
-			if(nSpace == string::npos) nSpace = data.length() - i;
-			string varName = data.substr(i+1,nSpace-1);
+			size_t nSpace = temp.substr(i).find(" ");
+			if(nSpace == string::npos) nSpace = temp.length() - i;
+			string varName = temp.substr(i+1,nSpace-1);
 
-			temp = data.substr(0,i) + ffs::memory[varName] + data.substr(i + nSpace);
+			temp = temp.substr(0,i) + ffs::memory[varName] + temp.substr(i + nSpace);
 			len = temp.length();
 			i = 0;
 		}
@@ -55,6 +88,8 @@ string insertVariables(string data) {
 	return temp;
 }
 
+bool fullfilledIf = true;
+
 int parseInstructions() {
 	for(ffs::lineIndex = 0; ffs::lineIndex < instructions.size(); ffs::lineIndex++) {
 		string l = instructions[ffs::lineIndex];
@@ -62,14 +97,16 @@ int parseInstructions() {
 		l = insertVariables(l);
 
 		vector<string> args = argumentList(l);
-		if(ffs::instructionList.find(args[0]) != ffs::instructionList.end()) {
+		if(ffs::instructionList.find(args[0]) != ffs::instructionList.end() && fullfilledIf) {
 			ffs::instrReturnType rt = ffs::instructionList[args[0]](args);
 			if(rt.panic) {
 				cout << "Error on line " << ffs::lineIndex << endl;
 				cout << rt.message << "\nexecution halted!" << endl;
 				return 1;
 			}
-		}
+		} else if(args[0] == "if") {
+			fullfilledIf = evaluate(args,1);
+		} else if(args[0] == "endif") fullfilledIf = true;
 	}
 
 	return 0;

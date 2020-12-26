@@ -1,21 +1,18 @@
 ~ TODO: working calculator that reads input and does maths
 ~ until then this is just my main test file
 
-var ts "FACT: you"
-var ts $ts + " will"
-var ts $ts + " never"
-var ts $ts + " be"
-var ts $ts + " an"
-var ts $ts + " anime"
-var ts $ts + " girl"
+print "getting factorial 10"
+var fac 1
+var i 0
 
-print $ts
+var i $i + 1
 
-var math 1
-var math $math + 68
+var fac $fac * $i
 
-print "Math: " + $math + " ... " + "nice"
+if $i < 20
 
-var math $math * 6.08695652174
+goto 7
 
-print "More math: " + $math + " ... haha"
+endif
+
+print "factorial is: " + $fac

@@ -1,0 +1,112 @@
+:root {
+	--blobColour:rgb(182, 179, 179);
+}
+
+.error {
+	background-color: rgba(255, 0, 0, 0.623);
+}
+
+#apiError {
+	color: white;
+	padding: 1em;
+}
+
+#apiError div {
+	display: inline-block;
+	padding: 0.5em;
+	height: 100%;
+}
+
+#apiError svg {
+	display: inline-block;
+	font-size: 7em;
+	width: 0.75em;
+	height: 0.75em;
+	fill: white;
+}
+
+@keyframes example {
+	50% {
+		padding-right: 1em;
+	}	
+}
+
+.delay {
+	animation-delay: 1s;
+}
+
+.loading {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 1s linear;
+}
+  
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 0.75s, opacity 0.75s linear;
+}
+
+.loading * {
+	margin: 0.5em;
+	color: var(--blobColour);
+	background-color: var(--blobColour);
+	animation-name: example;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	border-radius: 0.25em;
+}
+
+.self-loading {
+	margin: 0.5em;
+	color: var(--blobColour);
+	background-color: var(--blobColour);
+	animation-name: example;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	border-radius: 0.25em;
+}
+
+.repoSvg {
+	width: 1em;
+	height: 1em;
+	fill: white;
+}
+
+.svg-star {
+	width: 1em;
+	height: 1em;
+	fill: gold;
+}
+
+.repoHref {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+.tags {
+	margin-left: 0.75em;
+	color: rgb(58, 57, 57);
+}
+
+@media only screen and (max-width: 770px) {
+	#apiError svg {
+		display: none;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.tags {
+		color: rgb(199, 196, 196);
+	}
+
+	:root {
+		--blobColour: rgb(54, 54, 54);
+	}
+}
